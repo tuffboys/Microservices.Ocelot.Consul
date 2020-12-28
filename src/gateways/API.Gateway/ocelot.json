@@ -1,0 +1,36 @@
+{
+  "ReRoutes": [
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "orders",
+      "UpstreamPathTemplate": "/api/ordering/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "ReRouteCaseSensitive": false,
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "deliveries",
+      "UpstreamPathTemplate": "/api/deliveries/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "ReRouteCaseSensitive": false,
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  }
+}
+
